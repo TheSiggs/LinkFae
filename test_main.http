@@ -1,0 +1,26 @@
+# Shorten a URL
+# curl -X 'POST'
+#  'http://127.0.0.1:8000/url'
+#  -H 'accept: application/json'
+#  -H 'Content-Type: application/json'
+#  -d '{
+#  "target_url": "https://youtube.com"
+#}'
+POST http://127.0.0.1:8000/url
+accept: application/json
+Content-Type: application/json
+
+{
+  "target_url": "https://youtube.com"
+}
+
+
+###
+
+# Go to URL
+# curl -X 'GET'
+#  'http://127.0.0.1:8000/KWOVNKYVIW'
+#  -H 'accept: application/json'
+GET http://127.0.0.1:8000/KWOVNKYVIW
+accept: application/json
+
