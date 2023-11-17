@@ -40,6 +40,8 @@ def create_url(url: URLBase, token: Annotated[str, Depends(oauth2_scheme)], db: 
         raise HTTPException(status_code=403, detail="Forbidden")
     if not validators.url(url.target_url):
         raise_bad_request(message="Your provided URL is not valid")
+    if len(url.target_url) > 10000:
+        raise_bad_request(message="Your provided URL is not valid")
     url = URLRepository.create_url(db=db, url=url.target_url)
     hostname = os.getenv("HOSTNAME")
 
