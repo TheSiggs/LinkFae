@@ -34,15 +34,15 @@ def raise_bad_request(message):
     raise HTTPException(status_code=400, detail=message)
 
 
-@app.post("/url")
-def create_url(url: URLBase, token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
+@app.get("/shorten")
+def create_url(url: str, token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
     if token != os.getenv('SECRET_KEY'):
         raise HTTPException(status_code=403, detail="Forbidden")
-    if not validators.url(url.target_url):
+    if not validators.url(url):
         raise_bad_request(message="Your provided URL is not valid")
-    if len(url.target_url) > 10000:
+    if len(url) > 10000:
         raise_bad_request(message="Your provided URL is not valid")
-    url = URLRepository.create_url(db=db, url=url.target_url)
+    url = URLRepository.create_url(db=db, url=url)
     hostname = os.getenv("HOSTNAME")
 
     return f"{hostname}/{url.key}"
