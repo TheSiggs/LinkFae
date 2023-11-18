@@ -18,7 +18,7 @@ def get_url_by_key(db: Session, key: str):
 
 def create_url(db: Session, url: str):
     db_url = URL()
-    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     key = "".join(secrets.choice(chars) for _ in range(10))
     db_url.key = key
     db_url.target_url = url
